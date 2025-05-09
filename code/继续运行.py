@@ -1,5 +1,8 @@
 import tkinter as tk
 from tkinter import messagebox
+import logging.config
+from datetime import datetime
+
 
 def create_continue_dialog(title="异常提示程序遇到异", message="程序遇到异常，需要人工手动程序遇到异常，需要人工手动"):
     root = tk.Tk()
@@ -53,5 +56,17 @@ def create_continue_dialog(title="异常提示程序遇到异", message="程序�
     
     root.mainloop()
 
-if __name__ == "__main__":
+# 初始化日志
+CONF_PATH = r'C:\project\python_project\AI+市场工具&稽核\AI+市场工具&稽核第一期需求\选项目-制表-得出结论\logs\logging.conf'
+logging.config.fileConfig(
+    CONF_PATH,
+    defaults={'date': datetime.now().strftime('%Y-%m-%d')},
+    encoding='utf-8'
+)
+logger = logging.getLogger('root')
+
+try: 
+    logger.info("程序遇到异常，需要人工手动")
     create_continue_dialog()
+except Exception as e:
+    logger.error(f"Error: {e}")
